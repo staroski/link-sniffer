@@ -17,25 +17,17 @@ public class BaixarMateriais {
 		}
 	}
 
-	private void executar() {
-		String downloads = "C:\\Users\\ricardo.staroski\\Downloads\\download-sniffer";
-		String site = "http://tesourodiretosemsegredos.com.br/wp-content/uploads";
-		for (int ano = 2014; ano <= 2016; ano++) {
-			for (int mes = 1; mes <= 12; mes++) {
-				String pasta = String.format("%s/%04d/%02d/", downloads, ano, mes);
-				String pagina = String.format("%s/%04d/%02d/", site, ano, mes);
-				System.out.print(pagina);
-				try {
-					String[] extensoes = new String[] { ".pdf", ".xlsm", ".xls", ".doc", ".docx", ".mp4" };
-					LinkSniffer sniffer = new LinkSniffer(pasta, pagina, extensoes);
-					sniffer.execute();
-					System.out.println("    OK");
-				} catch (HttpStatusException httpError) {
-					System.err.println("    Erro " + httpError.getStatusCode());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+	private void executar() throws Exception {
+		try {
+			String[] tipos = new String[] { ".pdf", ".xlsm", ".xls", ".doc", ".docx", ".mp4" };
+			String pagina = "<página web onde serão procurados os links de arquivos para baixar>";
+			String pasta = "<diretório onde os arquivos serão salvos>";
+			System.out.print(pagina);
+			LinkSniffer sniffer = new LinkSniffer(pasta, pagina, tipos);
+			sniffer.execute();
+			System.out.println("    OK");
+		} catch (HttpStatusException httpError) {
+			System.err.println("    Erro " + httpError.getStatusCode());
 		}
 	}
 }
